@@ -7,8 +7,28 @@
 
 Ensure Default User config-directory exists:
   file.directory:
-    - name: '{{ redis_insight.config.default_user_dir }}'
     - makedirs: True
+    - name: '{{ redis_insight.config.default_user_dir }}'
+
+Manage REDIS Insight wrapper script:
+  file.managed:
+    - name: '{{ redis_insight.config.app_dir }}\Launch-RedisInsight.ps1'
+    - require:
+      - sls: {{ tplroot }}.package.install
+    - source: salt://{{ tplroot }}/files/default/Launch-RedisInsight.ps1.jinja
+    - template: jinja
+
+Manage desktop shortcut for REDIS Insight:
+  file.shortcut:
+    - arguments: >-
+        -WindowStyle Hidden -ExecutionPolicy Bypass -File
+        "{{ redis_insight.config.app_dir }}\Launch-RedisInsight.ps1"
+    - icon_location: '{{ redis_insight.config.app_dir }}\Redis Insight.exe'
+    - name: '{{ redis_insight.config.desktop_file }}'
+    - require:
+      - file: 'Manage REDIS Insight wrapper script'
+    - target: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+    - working_dir: '{{ redis_insight.config.app_dir }}'
 
 Manage global config-file for Default User:
   file.managed:
