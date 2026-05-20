@@ -33,11 +33,18 @@ Ensure REDIS Insight bin symlink is removed:
 {%- if is_fips %}
 Purge REDIS Insight FIPS physical files:
   cmd.run:
-    - name: >
+    - name: |
         rpm -ql {{ redis_insight.pkg.name }} | sort -r |
-        while read -r f; do
-        if [ ! -d "$f" ]; then rm -f "$f";
-        else rmdir "$f" 2>/dev/null || true; fi;
+        while read -r f
+        do
+          if [[ ! -d "$f" ]]
+          then
+            printf 'Deleting "%s"... ' "$f"
+            rm -f "$f" || echo "FAILED"
+            echo "Done"
+          else
+            rmdir "$f" 2>/dev/null || true
+          fi
         done
     - onlyif: 'rpm -q {{ redis_insight.pkg.name }}'
     - require:
