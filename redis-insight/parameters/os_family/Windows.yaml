@@ -13,7 +13,10 @@
 ---
 values:
   pkg:
-    name: 'redisinsight'
+    name: 'Redis Insight'
   config:
     target_version: ''
+    app_dir: 'C:\Program Files\Redis Insight'
+    desktop_file: 'C:\Users\Public\Desktop\Redis Insight.lnk'
+    default_user_dir: 'C:\Users\Default\.redis-insight'
 ...
