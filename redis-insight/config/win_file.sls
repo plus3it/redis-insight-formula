@@ -12,6 +12,8 @@ Ensure Default User config-directory exists:
 
 Manage REDIS Insight wrapper script:
   file.managed:
+    - context:
+        redis_insight: {{ redis_insight | json }}
     - name: '{{ redis_insight.config.app_dir }}\Launch-RedisInsight.ps1'
     - require:
       - sls: {{ tplroot }}.package.install
