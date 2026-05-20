@@ -46,12 +46,15 @@ Executes _just_ the `config` state to install/configure the REDIS Insight utilit
 
 Executes _just_ the `config` state to uninstall the REDIS Insight utility client-configuration (etc.) files and, on Windows, remove any registry-keys set by prior install-runs of the formula.
 
-## Linux-base deployment
+## Compatibility Notes:
 
-Pleas see the [README_Linux.md](README_Linux.md) file for information on use of this formula with ("enterprise") Linux-based hosts.
+### Linux-based deployment
 
+1. The ("enterprise") Linux content is provided as a best-effort offering. It appears to properly install and configure the REDIS Insight RPM[^3]. However, when one attempts to launch it on a headless server (e.g., an AWS EC2 with or without a full graphical desktop installed), the `redisinsight` binary attempts to start but ultimately bombs out. This appears to be due to a limitation in the interaction between the RPM-packaged binaries and the expectations for the system they're installed on. This automation _may_ work on a physical, EL-based (RHEL, OEL, Alma, Rocky, etc) hosts with a _real_ GPU installed. However, limitations of the development and testing environment prevents proving this to be true or false
+1. As of the April 2026 release (v3.4.2), the RPM is not installable via `dnf` on FIPS-enabled systems[^4]. Due to this limitation, the formula's package installation and cleanup logic performs some workarounds when FIPS-mode is detected to be enabled.
 
 
 [^1]: As of this README's writing, only Enterprise Linux and related distros (Red Hat and Oracle Enterprise, CentOS Stream, Rocky and Alma Linux). It has only been specifically tested with EL **_9_** variants.
 [^2]: As of this README's writing, this functionality has only been tested on Windows Server 2022
-
+[^3]: The RPMs are distributed through the public GitHub project for REDIS Insight. See project's [releases](https://github.com/redis/RedisInsight/releases) page
+[^4]: This issue has been [reported](https://github.com/redis/RedisInsight/issues/5950) to the project maintainers
