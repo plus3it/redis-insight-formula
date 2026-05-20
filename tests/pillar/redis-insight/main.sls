@@ -2,7 +2,7 @@ redis-insight:
   lookup:
     pkg:
       {%- if grains.os_family == "RedHat" %}
-      name: flux-cli
+      name: redisinsight
       download_uri: ''
       download_sig: ''
       {%- endif %}

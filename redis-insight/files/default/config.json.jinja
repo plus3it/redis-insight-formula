@@ -1,0 +1,12 @@
+{
+  "agreements": {
+    "eula": {{ redis_insight.config.get('eula_accepted', true) | json }},
+    "analytics": {{ redis_insight.config.get('telemetry', false) | json }}
+  },
+  "settings": {
+    "telemetry": {{ redis_insight.config.get('telemetry', false) | json }},
+    "encryption": {
+      "enabled": {{ redis_insight.config.get('encryption_enabled', true) | json }}
+    }
+  }
+}

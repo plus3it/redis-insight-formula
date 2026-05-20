@@ -1,0 +1,6 @@
+# Calculate a unique port per user
+# Range: 10000 to 59999
+# - Avoids privileged ports (<1024)
+# - Avoids Chromium restricted ports (6000 range)
+# - Stays well below the 65535 TCP limit
+export REDISINSIGHT_PORT=$(( 10000 + $(id -u) % 50000 ))

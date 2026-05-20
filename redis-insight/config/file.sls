@@ -9,20 +9,11 @@
 
 include:
   - {{ sls_package_install }}
+{%- if grains.kernel == "Linux" %}
+  - redis-insight.config.lin_file
+{%- elif grains.kernel == "Windows" %}
+  - redis-insight.config.win_file
+{%- endif %}
 
-redis-insight-config-file-file-managed:
-  file.managed:
-    - name: {{ redis_insight.config }}
-    - source: {{ files_switch(['example.tmpl'],
-                              lookup='redis-insight-config-file-file-managed'
-                 )
-              }}
-    - mode: 644
-    - user: root
-    - group: {{ redis_insight.rootgroup }}
-    - makedirs: True
-    - template: jinja
-    - require:
-      - sls: {{ sls_package_install }}
-    - context:
-        redis_insight: {{ redis_insight | json }}
+Avoid being a null-router (config/file):
+  test.nop: []

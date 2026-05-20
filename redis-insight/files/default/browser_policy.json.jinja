@@ -1,0 +1,2 @@
+{%- set browser_policies = redis_insight.config.get('browser_policies', {}) -%}
+{{ browser_policies | json(indent=2) }}

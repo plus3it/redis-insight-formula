@@ -13,6 +13,15 @@
 ---
 values:
   pkg:
-    name: redis-insight-redhat
-  config: /etc/redis-insight.conf
+    name: 'redisinsight'
+  config:
+    app_dir: '/opt/Redis Insight'
+    browser_policy_dir: '/etc/opt/chrome/policies/managed'
+    desktop_file: '/usr/share/applications/redis-insight.desktop'
+    eula_accepted: true
+    global_cfg: '/etc/redis-insight.d/config.json'
+    port: 5540
+    profile_file: '/etc/profile.d/redis-insight.sh'
+    system_group: 'root'
+    telemetry: false
 ...
