@@ -15,8 +15,10 @@ values:
   pkg:
     name: 'Redis Insight'
   config:
-    target_version: ''
     app_dir: 'C:\Program Files\Redis Insight'
-    desktop_file: 'C:\Users\Public\Desktop\Redis Insight.lnk'
+    browser_policies:
+      HardwareAccelerationModeEnabled: 0
     default_user_dir: 'C:\Users\Default\.redis-insight'
+    desktop_file: 'C:\Users\Public\Desktop\Redis Insight.lnk'
+    target_version: ''
 ...
