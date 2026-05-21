@@ -10,6 +10,12 @@ Ensure Default User config-directory exists:
     - makedirs: True
     - name: '{{ redis_insight.config.default_user_dir }}'
 
+Ensure REDIS Insight is in system PATH:
+  win_path.exists:
+    - name: '{{ redis_insight.config.app_dir }}'
+    - require:
+      - sls: {{ tplroot }}.package.install
+
 Manage REDIS Insight wrapper script:
   file.managed:
     - context:
