@@ -16,6 +16,11 @@ $port = 10000 + ($rid % 50000)
 # Set the environment variable for this process tree
 $env:REDISINSIGHT_PORT = $port
 
+{%- if redis_insight.config.get('eula_accepted', true) %}
+# Officially bypass the EULA prompt via Environment Variable
+$env:RI_ACCEPT_TERMS_AND_CONDITIONS = "true"
+{%- endif %}
+
 # Launch Redis Insight and pass along the standard arguments
 $appPath = "{{ redis_insight.config.app_dir }}\Redis Insight.exe"
 $appArgs = "--no-sandbox", "--disable-gpu"
