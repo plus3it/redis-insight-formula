@@ -4,6 +4,7 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as redis_insight with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
+{%- set browser_policies = redis_insight.config.get('browser_policies', {}) %}
 
 Ensure Default User config-directory exists:
   file.directory:
@@ -50,3 +51,24 @@ Manage global config-file for Default User:
         lookup='redis-insight-config-file-managed'
       ) }}
     - template: jinja
+
+{%- for policy, val in browser_policies.items() %}
+Set Browser Policy - {{ policy }}:
+  reg.present:
+    - name: 'HKLM\SOFTWARE\Policies\Google\Chrome'
+    - require:
+      - sls: {{ tplroot }}.package.install
+    {%- if val is boolean %}
+    - vdata: {{ 1 if val else 0 }}
+    - vname: '{{ policy }}'
+    - vtype: REG_DWORD
+    {%- elif val is number %}
+    - vdata: {{ val }}
+    - vname: '{{ policy }}'
+    - vtype: REG_DWORD
+    {%- else %}
+    - vdata: '{{ val }}'
+    - vname: '{{ policy }}'
+    - vtype: REG_SZ
+    {%- endif %}
+{%- endfor %}
