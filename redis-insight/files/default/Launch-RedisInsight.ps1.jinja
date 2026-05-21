@@ -1,0 +1,28 @@
+# File managed by Salt - DO NOT EDIT MANUALLY
+# Dynamically calculate a unique port per user to avoid collisions
+# Range: 10000 to 59999
+
+# Get the current user's SID (e.g., S-1-5-21-XXX-XXX-XXX-1001)
+$identity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+$sid = $identity.User.Value
+
+# Extract the Relative ID (RID) which is the last set of numbers in the SID
+$ridString = ($sid -split '-')[-1]
+$rid = [int]$ridString
+
+# Calculate the port using the exact same modulo logic as the Linux script
+$port = 10000 + ($rid % 50000)
+
+# Set the environment variable for this process tree
+$env:REDISINSIGHT_PORT = $port
+
+{%- if redis_insight.config.get('eula_accepted', true) %}
+# Officially bypass the EULA prompt via Environment Variable
+$env:RI_ACCEPT_TERMS_AND_CONDITIONS = "true"
+{%- endif %}
+
+# Launch Redis Insight and pass along the standard arguments
+$appPath = "{{ redis_insight.config.app_dir }}\Redis Insight.exe"
+$appArgs = "--no-sandbox", "--disable-gpu"
+
+Start-Process -FilePath $appPath -ArgumentList $appArgs

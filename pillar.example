@@ -1,0 +1,59 @@
+redis-insight:
+  lookup:
+    config:               # Configuration-related parameters
+      app_dir:            # (Optional) A string defining where the application
+                          # will be installed to:
+                          #   Defaults already defined for the "Windows" and
+                          #   "RedHat" platforms
+
+      browser_policies:   # (Optional) A dict containing registry-key's names
+                          # and associated values (Windows-only)
+
+      browser_policy_dir: # (Optional) A string defining what Linux directory
+                          # browser policy-definitions will be installed to
+                          # (Linux-only)
+
+      default_user_dir:   # (Optional) A string defining the path from which
+                          # users' application-config files are stored (Windows-
+                          # only)
+
+      desktop_file:       # (Optional) A string defining where desktop launcher-
+                          # icons will be sourced from
+                          #   Defaults already defined for the "Windows" and
+                          #   "RedHat" platforms
+
+      eula_accepted:      # (Optional) A boolean defining whether the EULA-
+                          # assent should be treated as already given
+
+      global_cfg:         # (Optional) A string defining the path to the global
+                          # REDIS Insight configuration file (Linux-only)
+
+      profile_file:       # (Optional) A string defining the path to the
+                          # interactive shell's profile-initialization script
+                          # (Linux-only)
+
+      system_group:       # (Optional) A string defining the system-group the
+                          # application should be installed as (Linux-only)
+
+      telemetry:          # (Optional) A boolean defining whether the
+                          # application's telemetry permission should be treated
+                          # as alrady given
+
+      target_version:     # (Optional) A string defining the targeted
+                          # installation-version if relying on download-
+                          # determination used by fallback routine's GitHub API
+
+
+    pkg:                  # Package-related parameters
+      name:               # (Optional) A string defining the installed
+                          # software's registered name
+
+      download_sig:       # (Optional) A string defining the location of the
+                          # signature-file used to validate the contents of a
+                          # self-hosted download-installer
+
+      download_uri:       # (Optional) A string defining the URI from which the
+                          # installation-archive should be installed. If left
+                          # null, formula-logic will attempt to use the GitHub
+                          # API to determine the appropriate download URI for
+                          # the platform-appropriate installer-file
