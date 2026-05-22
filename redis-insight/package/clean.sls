@@ -11,5 +11,5 @@ include:
   - .win_clean
 {%- endif %}
 
-Avoid being a null-router (package/clean):
+Avoid being a null-router (package/clean) - REDIS Insight:
   test.nop: []
