@@ -12,5 +12,5 @@ include:
   - redis-insight.config.win_clean
 {%- endif %}
 
-Avoid being a null-router (config/clean):
+Avoid being a null-router (config/clean) - REDIS Insight:
   test.nop: []

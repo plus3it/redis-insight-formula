@@ -12,5 +12,5 @@ include:
   - redis-insight.package.win_install
 {%- endif %}
 
-Avoid being a null-router (package/install):
+Avoid being a null-router (package/install) - REDIS Insight:
   test.nop: []
